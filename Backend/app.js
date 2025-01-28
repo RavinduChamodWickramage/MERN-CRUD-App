@@ -1,13 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const router = require("./Routes/UserRoute");
 
 const app = express();
 
 // middleware
-app.use("/", (req, res, next) => {
-  console.log("Request received");
-  res.send("Request received");
-})
+app.use("/users", router);
 
 mongoose.connect(
   "mongodb+srv://admin:RCWbhm19982001@cluster-mern-crud-app.iandu.mongodb.net/"
