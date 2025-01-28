@@ -8,7 +8,6 @@ const getAllUsers = async (req, res, next) => {
     // Fetch all users from the database
     users = await User.find();
   } catch (err) {
-    // Log the error and send a 500 response
     console.error(err);
     return res
       .status(500)
@@ -50,7 +49,32 @@ const addUsers = async (req, res, next) => {
   return res.status(201).json({ user });
 };
 
+const getById = async (req, res, next) => {
+
+  const id = req.params.id;
+
+  let user;
+
+  try {
+    user = await User.findById(id);
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .json({ message: "An error occurred while fetching user by id" });
+  }
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  return res.status(200).json({ user });
+
+
+}
+
 module.exports = {
   getAllUsers,
   addUsers,
+  getById,
 };
